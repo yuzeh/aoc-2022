@@ -18,21 +18,21 @@ let main filename =
     |> input_line
     |> String.trim
     |> rucksack_to_set in
-  let rec agg handle score_accumulator =
+  let rec score_aggregate score_accumulator =
     try
-      let rucksack_set_1 = read_rucksack handle in
-      let rucksack_set_2 = read_rucksack handle in
-      let rucksack_set_3 = read_rucksack handle in
+      let rucksack_set_1 = read_rucksack ic in
+      let rucksack_set_2 = read_rucksack ic in
+      let rucksack_set_3 = read_rucksack ic in
       let common_item = rucksack_set_1
         |> CharSet.inter rucksack_set_2
         |> CharSet.inter rucksack_set_3
         |> CharSet.choose in
       let score = score_item common_item in
-      agg handle (score_accumulator + score)
+      score_aggregate (score_accumulator + score)
     with End_of_file ->
       score_accumulator in
-  let total = agg ic 0 in
-    close_in ic;
+  let total = score_aggregate 0 in
+  close_in ic;
   print_int total;
   print_endline ""
 
