@@ -1,4 +1,4 @@
-# python src/p04a.py data/p04.txt
+# python src/p04b.py data/p04.txt
 
 import sys
 
